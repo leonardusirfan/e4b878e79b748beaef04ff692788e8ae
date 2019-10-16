@@ -58,8 +58,22 @@ public class ImageLoader {
                 .asBitmap()
                 .load(url)
                 .apply(new RequestOptions().placeholder(new ColorDrawable(Color.WHITE)).
-                        //override(500).
                                 diskCacheStrategy(DiskCacheStrategy.ALL))
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        listener.onLoaded(resource, resource.getWidth(), resource.getHeight());
+                    }
+                });
+    }
+
+    public static void preload(Context context, String url, final ImageLoadListener listener, int width, int height){
+        Glide.with(context)
+                .asBitmap()
+                .load(url)
+                .apply(new RequestOptions().placeholder(new ColorDrawable(Color.WHITE)).
+                        override(width, height).
+                        diskCacheStrategy(DiskCacheStrategy.ALL))
                 .into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {

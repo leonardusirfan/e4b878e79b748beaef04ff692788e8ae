@@ -14,11 +14,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".EventActivity"/>
+        <activity android:name=".EventActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".LoginActivity"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".TiketActivity" />
-        <activity android:name=".SplashScreen">
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".TiketActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SplashScreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

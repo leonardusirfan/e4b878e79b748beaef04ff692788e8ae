@@ -66,6 +66,14 @@ public class AppRequestCallback implements ApiVolleyManager.RequestCallback {
                     }
                 }
             }
+            else if(status == 401){
+                if(listener instanceof RequestListener){
+                    ((RequestListener) listener).onUnauthorized(message);
+                }
+                else{
+                    listener.onFail(message);
+                }
+            }
             else{
                 listener.onFail(message);
             }
@@ -89,5 +97,6 @@ public class AppRequestCallback implements ApiVolleyManager.RequestCallback {
 
     public interface RequestListener extends SimpleRequestListener {
         void onEmpty(String message);
+        void onUnauthorized(String message);
     }
 }

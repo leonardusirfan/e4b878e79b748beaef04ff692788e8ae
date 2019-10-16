@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Drama Musikal</string>
+    <string name="app_name">Tukutiket</string>
     <string name="error_json">Terjadi kesalahan data</string>
 
     <string-array name="arr_jumlah_tiket">

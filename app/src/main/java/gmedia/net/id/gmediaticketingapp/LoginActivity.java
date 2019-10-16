@@ -3,9 +3,11 @@ package gmedia.net.id.gmediaticketingapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -20,6 +22,9 @@ import gmedia.net.id.gmediaticketingapp.Util.JSONBuilder;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText txt_username, txt_password;
+    private ImageView img_visible;
+
+    private boolean password_visible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +33,24 @@ public class LoginActivity extends AppCompatActivity {
 
         txt_username = findViewById(R.id.txt_username);
         txt_password = findViewById(R.id.txt_password);
+        img_visible = findViewById(R.id.img_visible);
+
+        img_visible.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                password_visible = !password_visible;
+                if(password_visible){
+                    txt_password.setTransformationMethod(null);
+                    txt_password.setSelection(txt_password.getText().length());
+                    img_visible.setImageResource(R.drawable.visible);
+                }
+                else{
+                    txt_password.setTransformationMethod(new PasswordTransformationMethod());
+                    txt_password.setSelection(txt_password.getText().length());
+                    img_visible.setImageResource(R.drawable.invisible);
+                }
+            }
+        });
 
         findViewById(R.id.btn_login).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,10 +89,12 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(String result, String message) {
                         try{
-                            String id = new JSONObject(result).getString("users_id");
-                            String token = new JSONObject(result).getString("token");
+                            JSONObject obj = new JSONObject(result);
+                            String id = obj.getString("users_id");
+                            String token = obj.getString("token");
+                            String role = obj.getString("role");
 
-                            AppSharedPreferences.Login(LoginActivity.this, id, token);
+                            AppSharedPreferences.Login(LoginActivity.this, id, token, role);
                             startActivity(new Intent(LoginActivity.this, EventActivity.class));
                             finish();
                         }
@@ -84,6 +109,17 @@ public class LoginActivity extends AppCompatActivity {
                     public void onFail(String message) {
                         Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
                         AppLoading.getInstance().stopLoading();
+                    }
+
+                    @Override
+                    public void onUnauthorized(String message) {
+                        Intent i = new Intent(LoginActivity.this, LoginActivity.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(i);
+                        AppSharedPreferences.Logout(LoginActivity.this);
+
+                        Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
                     }
                 }));
     }

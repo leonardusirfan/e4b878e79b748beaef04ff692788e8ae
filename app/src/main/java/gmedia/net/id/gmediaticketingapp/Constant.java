@@ -12,6 +12,7 @@ public class Constant {
     public final static String TAG = "ticketing_log";
 
     public final static String EXTRA_ID_EVENT = "id_event";
+    public final static String EXTRA_NAMA_EVENT = "nama_event";
 
     private final static String BASE_URL = "http://mgmt.tukutiket.com/api/";
 

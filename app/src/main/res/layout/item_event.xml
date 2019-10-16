@@ -41,29 +41,50 @@
                     android:id="@+id/txt_nama"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="@dimen/dp5"
                     android:textSize="@dimen/sp20"/>
 
-                <TextView
-                    android:id="@+id/txt_tanggal"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/sp10"/>
+                    android:padding="@dimen/dp5">
 
-                <TextView
-                    android:id="@+id/txt_lokasi"
+                    <ImageView
+                        android:layout_width="@dimen/tiny_icon_size"
+                        android:layout_height="@dimen/tiny_icon_size"
+                        android:src="@drawable/calendar"/>
+
+                    <TextView
+                        android:id="@+id/txt_tanggal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp10"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp12"/>
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_marginTop="@dimen/dp5"
-                    android:textColor="@color/black"
-                    android:minLines="2"
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    android:textSize="@dimen/sp12"/>
+                    android:padding="@dimen/dp5">
+
+                    <ImageView
+                        android:layout_width="@dimen/tiny_icon_size"
+                        android:layout_height="@dimen/tiny_icon_size"
+                        android:src="@drawable/location"/>
+
+                    <TextView
+                        android:id="@+id/txt_lokasi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp10"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp12"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 

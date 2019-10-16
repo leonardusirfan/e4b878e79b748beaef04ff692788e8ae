@@ -1,6 +1,7 @@
 package gmedia.net.id.gmediaticketingapp;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
@@ -33,6 +34,7 @@ import gmedia.net.id.gmediaticketingapp.Model.TiketModel;
 import gmedia.net.id.gmediaticketingapp.Util.ApiVolleyManager;
 import gmedia.net.id.gmediaticketingapp.Util.AppLoading;
 import gmedia.net.id.gmediaticketingapp.Util.AppRequestCallback;
+import gmedia.net.id.gmediaticketingapp.Util.AppSharedPreferences;
 import gmedia.net.id.gmediaticketingapp.Util.Converter;
 import gmedia.net.id.gmediaticketingapp.Util.ImageLoader;
 import gmedia.net.id.gmediaticketingapp.Util.JSONBuilder;
@@ -61,6 +63,8 @@ public class TiketBeliFragment extends Fragment {
                              Bundle savedInstanceState) {
         activity = (TiketActivity) getActivity();
         View v = inflater.inflate(R.layout.fragment_beli_tiket, container, false);
+
+        setHasOptionsMenu(false);
 
         img_konser = v.findViewById(R.id.img_konser);
         txt_nik = v.findViewById(R.id.txt_nik);
@@ -143,6 +147,17 @@ public class TiketBeliFragment extends Fragment {
                         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
                         AppLoading.getInstance().stopLoading();
                     }
+
+                    @Override
+                    public void onUnauthorized(String message) {
+                        Intent i = new Intent(activity, LoginActivity.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(i);
+                        AppSharedPreferences.Logout(activity);
+
+                        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+                    }
                 }));
     }
 
@@ -183,10 +198,21 @@ public class TiketBeliFragment extends Fragment {
                         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
                         AppLoading.getInstance().stopLoading();
                     }
+
+                    @Override
+                    public void onUnauthorized(String message) {
+                        Intent i = new Intent(activity, LoginActivity.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(i);
+                        AppSharedPreferences.Logout(activity);
+
+                        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+                    }
                 }));
     }
 
-    private void showKonfirmasiDialog(double total, double diskon, double pajak, double bayar){
+    private void showKonfirmasiDialog(double total, double diskon, double pajak, double admin, double bayar){
         Display display = activity.getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getRealSize(size);
@@ -201,19 +227,37 @@ public class TiketBeliFragment extends Fragment {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
 
-        TextView txt_total, txt_diskon, txt_bayar, btn_ya, btn_batal;
+        TextView txt_dialog_nama, txt_dialog_email, txt_dialog_nomor;
+        TextView txt_total, txt_diskon, txt_bayar, btn_ya, btn_batal, txt_pajak, txt_admin;
+        txt_dialog_nama = dialog.findViewById(R.id.txt_dialog_nama);
+        txt_dialog_email = dialog.findViewById(R.id.txt_dialog_email);
+        txt_dialog_nomor = dialog.findViewById(R.id.txt_dialog_nomor);
+
         txt_total = dialog.findViewById(R.id.txt_total);
         txt_diskon = dialog.findViewById(R.id.txt_diskon);
         txt_bayar = dialog.findViewById(R.id.txt_bayar);
+        txt_pajak = dialog.findViewById(R.id.txt_pajak);
+        txt_admin = dialog.findViewById(R.id.txt_admin);
 
         btn_ya = dialog.findViewById(R.id.btn_ya);
         btn_batal = dialog.findViewById(R.id.btn_batal);
 
         String text;
+        text = " : " + txt_nama.getText().toString();
+        txt_dialog_nama.setText(text);
+        text = " : " + txt_email.getText().toString();
+        txt_dialog_email.setText(text);
+        text = " : " + txt_nomor.getText().toString();
+        txt_dialog_nomor.setText(text);
+
         text = " : " + Converter.doubleToRupiah(total);
         txt_total.setText(text);
         text = " : " + Converter.doubleToRupiah(diskon);
         txt_diskon.setText(text);
+        text = " : " + Converter.doubleToRupiah(pajak);
+        txt_pajak.setText(text);
+        text = " : " + Converter.doubleToRupiah(admin);
+        txt_admin.setText(text);
         text = " : " + Converter.doubleToRupiah(bayar);
         txt_bayar.setText(text);
 
@@ -269,6 +313,7 @@ public class TiketBeliFragment extends Fragment {
                             showKonfirmasiDialog(response.getDouble("total_harga"),
                                     response.getDouble("nominal_diskon"),
                                     response.getDouble("nominal_pajak"),
+                                    response.getDouble("nominal_admin"),
                                     response.getDouble("total_bayar"));
                         }
                         catch (JSONException e){
@@ -283,6 +328,17 @@ public class TiketBeliFragment extends Fragment {
                     public void onFail(String message) {
                         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
                         AppLoading.getInstance().stopLoading();
+                    }
+
+                    @Override
+                    public void onUnauthorized(String message) {
+                        Intent i = new Intent(activity, LoginActivity.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(i);
+                        AppSharedPreferences.Logout(activity);
+
+                        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
                     }
                 }));
     }
@@ -329,6 +385,17 @@ public class TiketBeliFragment extends Fragment {
                     public void onFail(String message) {
                         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
                         AppLoading.getInstance().stopLoading();
+                    }
+
+                    @Override
+                    public void onUnauthorized(String message) {
+                        Intent i = new Intent(activity, LoginActivity.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(i);
+                        AppSharedPreferences.Logout(activity);
+
+                        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
                     }
                 }));
     }

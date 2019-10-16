@@ -33,11 +33,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/dp15">
+            android:paddingStart="@dimen/dp15"
+            android:paddingEnd="@dimen/dp15"
+            android:paddingBottom="@dimen/dp15"
+            android:paddingTop="@dimen/dp10">
+
+            <TextView
+                android:id="@+id/txt_tanggal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textStyle="italic"
+                android:textSize="@dimen/sp12" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5">
 
                 <TextView
                     android:layout_width="0dp"
@@ -102,31 +114,65 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/btn_download"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone"
                 android:layout_marginTop="@dimen/dp10"
-                android:layout_gravity="end">
+                android:gravity="end">
 
-                <ImageView
-                    android:layout_width="@dimen/download_icon_size"
-                    android:layout_height="@dimen/download_icon_size"
-                    android:layout_gravity="center"
-                    android:src="@drawable/download"/>
-
-                <TextView
+                <LinearLayout
+                    android:id="@+id/btn_print"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Download tiket"
-                    android:minLines="2"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/sp8"/>
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:layout_marginEnd="@dimen/dp10"
+                    android:layout_marginStart="@dimen/dp10"
+                    android:layout_gravity="end">
+
+                    <ImageView
+                        android:layout_width="@dimen/download_icon_size"
+                        android:layout_height="@dimen/download_icon_size"
+                        android:layout_gravity="center"
+                        android:src="@drawable/print"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Print Barcode"
+                        android:minLines="2"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp8"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_download"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:layout_gravity="end">
+
+                    <ImageView
+                        android:layout_width="@dimen/download_icon_size"
+                        android:layout_height="@dimen/download_icon_size"
+                        android:layout_gravity="center"
+                        android:src="@drawable/download"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Download tiket"
+                        android:minLines="2"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp8"/>
+
+                </LinearLayout>
+
 
             </LinearLayout>
-
         </LinearLayout>
 
         <View

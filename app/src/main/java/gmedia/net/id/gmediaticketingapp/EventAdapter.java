@@ -71,6 +71,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                 public void onClick(View v) {
                     Intent i = new Intent(activity, TiketActivity.class);
                     i.putExtra(Constant.EXTRA_ID_EVENT, e.getId());
+                    i.putExtra(Constant.EXTRA_NAMA_EVENT, e.getNama());
                     activity.startActivity(i);
                 }
             });

@@ -1,6 +1,8 @@
 package gmedia.net.id.gmediaticketingapp.Model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import gmedia.net.id.gmediaticketingapp.Util.Converter;
 
@@ -14,8 +16,10 @@ public class RiwayatPenjualanModel {
     private String nama, email, nomor;
     private String link;
 
+    private List<String> listUrlBarcode = new ArrayList<>();
+
     public RiwayatPenjualanModel(String id, String kode_order, String nama, String email, String nomor,
-                                 Date tanggal_transaksi, double total_bayar, String link){
+                                 Date tanggal_transaksi, double total_bayar, String link, List<String> listUrlBarcode){
         this.id = id;
         this.kode_order = kode_order;
         this.nama = nama;
@@ -24,6 +28,7 @@ public class RiwayatPenjualanModel {
         this.tanggal_transaksi = tanggal_transaksi;
         this.total_bayar = total_bayar;
         this.link = link;
+        this.listUrlBarcode = listUrlBarcode;
     }
 
     public String getId() {
@@ -56,5 +61,9 @@ public class RiwayatPenjualanModel {
 
     public String getLink() {
         return link;
+    }
+
+    public List<String> getListUrlBarcode() {
+        return listUrlBarcode;
     }
 }

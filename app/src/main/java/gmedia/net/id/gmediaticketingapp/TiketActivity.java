@@ -10,6 +10,8 @@ import android.support.v7.widget.Toolbar;
 public class TiketActivity extends AppCompatActivity {
 
     public String id_event = "";
+    public String nama_event = "";
+
     public TabLayout tab_kuis;
 
     @Override
@@ -25,6 +27,9 @@ public class TiketActivity extends AppCompatActivity {
 
         if(getIntent().hasExtra(Constant.EXTRA_ID_EVENT)){
             id_event = getIntent().getStringExtra(Constant.EXTRA_ID_EVENT);
+        }
+        if(getIntent().hasExtra(Constant.EXTRA_NAMA_EVENT)){
+            nama_event = getIntent().getStringExtra(Constant.EXTRA_NAMA_EVENT);
         }
 
         tab_kuis = findViewById(R.id.tab_tiket);

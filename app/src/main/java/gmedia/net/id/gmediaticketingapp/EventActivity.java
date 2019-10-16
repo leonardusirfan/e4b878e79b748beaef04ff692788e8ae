@@ -126,13 +126,24 @@ public class EventActivity extends AppCompatActivity {
                         loadManager.failedLoad();
                         AppLoading.getInstance().stopLoading();
                     }
+
+                    @Override
+                    public void onUnauthorized(String message) {
+                        Intent i = new Intent(EventActivity.this, LoginActivity.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(i);
+                        AppSharedPreferences.Logout(EventActivity.this);
+
+                        Toast.makeText(EventActivity.this, message, Toast.LENGTH_SHORT).show();
+                    }
                 }));
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu, menu);
+        menuInflater.inflate(R.menu.menu_event, menu);
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) searchItem.getActionView();
